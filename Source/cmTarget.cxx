@@ -137,6 +137,7 @@ void cmTarget::SetMakefile(cmMakefile* mf)
     this->SetPropertyDefault("AUTOUIC_OPTIONS", 0);
     this->SetPropertyDefault("AUTORCC_OPTIONS", 0);
     this->SetPropertyDefault("LINK_DEPENDS_NO_SHARED", 0);
+    this->SetPropertyDefault("COMPILE_DEPENDS_NO_LIB", 0);
     this->SetPropertyDefault("LINK_INTERFACE_LIBRARIES", 0);
     this->SetPropertyDefault("WIN32_EXECUTABLE", 0);
     this->SetPropertyDefault("MACOSX_BUNDLE", 0);

@@ -116,6 +116,7 @@ if(CMAKE_GENERATOR MATCHES "Make")
 endif()
 if(CMAKE_GENERATOR STREQUAL "Ninja")
   add_RunCMake_test(Ninja)
+  add_RunCMake_test(compile_depends_no_lib)
 endif()
 add_RunCMake_test(CTest)
 

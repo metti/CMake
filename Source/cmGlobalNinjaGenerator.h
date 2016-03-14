@@ -295,7 +295,8 @@ public:
   void AppendTargetOutputs(cmGeneratorTarget const* target,
                            cmNinjaDeps& outputs);
   void AppendTargetDepends(cmGeneratorTarget const* target,
-                           cmNinjaDeps& outputs);
+                           cmNinjaDeps& outputs,
+                           const bool writeObjects = false);
   void AddDependencyToAll(cmGeneratorTarget* target);
   void AddDependencyToAll(const std::string& input);
 
