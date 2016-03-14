@@ -292,9 +292,11 @@ cmLocalNinjaGenerator
 
 void
 cmLocalNinjaGenerator
-::AppendTargetDepends(cmGeneratorTarget* target, cmNinjaDeps& outputs)
+::AppendTargetDepends(cmGeneratorTarget* target,
+                      cmNinjaDeps& outputs, const bool writeObjects)
 {
-  this->GetGlobalNinjaGenerator()->AppendTargetDepends(target, outputs);
+  this->GetGlobalNinjaGenerator()->AppendTargetDepends(target, outputs,
+                                                       writeObjects);
 }
 
 void cmLocalNinjaGenerator::AppendCustomCommandDeps(

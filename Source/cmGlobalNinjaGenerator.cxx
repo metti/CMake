@@ -982,7 +982,8 @@ cmGlobalNinjaGenerator
 
 void
 cmGlobalNinjaGenerator
-::AppendTargetDepends(cmGeneratorTarget const* target, cmNinjaDeps& outputs)
+::AppendTargetDepends(cmGeneratorTarget const* target, cmNinjaDeps& outputs,
+                      const bool writeObjects)
 {
   if (target->GetType() == cmState::GLOBAL_TARGET) {
     // Global targets only depend on other utilities, which may not appear in
@@ -992,10 +993,22 @@ cmGlobalNinjaGenerator
   } else {
     cmNinjaDeps outs;
     cmTargetDependSet const& targetDeps = this->GetTargetDirectDepends(target);
+    const bool noLibs = writeObjects &&
+                        target->GetPropertyAsBool("COMPILE_DEPENDS_NO_LIB");
     for (cmTargetDependSet::const_iterator i = targetDeps.begin();
          i != targetDeps.end(); ++i)
       {
-      if ((*i)->GetType() == cmState::INTERFACE_LIBRARY)
+
+      const cmState::TargetType& type = (*i)->GetType();
+      if (noLibs && (type == cmState::MODULE_LIBRARY ||
+                     type == cmState::SHARED_LIBRARY ||
+                     type == cmState::OBJECT_LIBRARY ||
+                     type == cmState::STATIC_LIBRARY))
+        {
+        continue;
+        }
+
+      if (type == cmState::INTERFACE_LIBRARY)
         {
         continue;
         }
