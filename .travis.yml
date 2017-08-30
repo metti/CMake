@@ -13,3 +13,23 @@ before_script:
 
 script: make -j4
 
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "le0eWxTBwpPMJmo6p0lHZZdYGR/pgK2h8zYVfyEIkvyM7kRnTZQ+c0lXsT0brKucUSIT3Qs4+kyaoNIzU20CJXgD7j0x7Mba7n8ViZX3ssnkmVp80cqyWZ95O1q56euHd/nAEWP0XxUfoqBYUuvorgC/6XNUjTXcHpRWouOlItvt1WMYt4d4P/PnToWlLeJ/r8zY2arkqTAUcHxbQ0JEcBS5z5O6OTB1I0KdkEY7ZnH7SxCNwtg0ynIEsP4J+uYoN7Rbzr6gOBZBjvkcj7kUN9LnYmKZ8tAN9Xx+Z0Pd4KaatbfjTEs4J/5d4xdp29VttxCf8CslkMUlN7+48y0bwwBaQh8ycOi6XCNYwQqCgFTYKRdUPsEPT9h1MH1myQPJZwy0ihAdGG8mPdJtTcCIKaTgSSwM0EHl+LsL3Zk2oM7tbJmjlvxoBwma18uMzZSav8uhEuT8HRmkvJL3MJFTauO+yOCTOesCUyLojO7qirbEL2qVKUEc0OR+3G3n1VSPS1WhUOk6MRzy7HuXlPw51vx+EUtzgH5IzyOY0niUsCjqWm3wv30sb8kPzdFgUovd6cBpTKgmLMa0UQS4SUivZBG281QZeyaboYZlUXnk1egeFhrGBit6G7PGMnnwbpruviNEIrHPVrCRZwnsarKH2kEch0rObPIK2akY6719TRA="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "metti/CMake"
+      description: "Build submitted via Travis CI"
+    notification_email: matthias@maennich.net
+    build_command_prepend: "cmake ."
+    build_command:   "make -B -j4"
+    branch_pattern: coverity_scan
+
