@@ -1,0 +1,14 @@
+dist: trusty
+
+language: cpp
+
+compiler:
+    - clang
+
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+
+script: make -j4
+
